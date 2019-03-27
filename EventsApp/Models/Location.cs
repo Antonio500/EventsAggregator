@@ -7,18 +7,21 @@ namespace EventsApp.Models
 {
     public class Location
     {
+        public int Id { get; set; }
         public float Latitude { get; set; }   // Широта (-90 - 0 Северная, 0 - 90 Южная)
         public float Longitude { get; set; }  // Долгота (-180 - 0 Восточная, 0 - 180 Западная)
         public string Name { get; set; }
         public Location()
         {
+            Id = 0;
             Latitude = 0;
             Longitude = 0;
             Name = "";
         }
 
-        public Location(float latitude, float longitude, string name = null)
+        public Location(int Id, float latitude = 0, float longitude = 0, string name = null)
         {
+            this.Id = Id;
             this.Latitude = latitude;
             this.Longitude = longitude;
             this.Name = name;
