@@ -1,13 +1,11 @@
 ﻿using EventsApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using static EventsApp.SqlConnectionClass;
-
+using static EventsApp.DataBase.SqlConnectoinEvents;
 namespace EventsApp.Controllers
 {
     [RoutePrefix("api/events")]
@@ -40,143 +38,23 @@ namespace EventsApp.Controllers
         [HttpGet]
         public IHttpActionResult GetAllEvents()
         {
-            // Получаем весь список событий
-            List<FullEvent> Events = new List<FullEvent>();
-            MyConnection.Open();
-            SqlCommand command = new SqlCommand("SELECT Id, Title, Date, Description, LocationId FROM Events", MyConnection);
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                FullEvent tempEvent = new FullEvent((int)reader.GetValue(0), (string)reader.GetValue(1), (DateTime)reader.GetValue(2), (string)reader.GetValue(3), new Location((int)reader.GetValue(4)));
-                Events.Add(tempEvent);
-            }
-            reader.Close();
-
-            // Получаем координаты для каждого события
-            foreach (FullEvent tempEvent in Events)
-            {
-                command.CommandText = "SELECT Latitude, Longitude, Name FROM Locations WHERE Id=" + tempEvent.Location.Id;
-                reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    tempEvent.Location.Latitude = (float)reader.GetValue(0);
-                    tempEvent.Location.Longitude = (float)reader.GetValue(1);
-                    tempEvent.Location.Name = (string)reader.GetValue(2);
-                }
-                reader.Close();
-            }
-
-
-            // Получаем список тегов для каждого события
-            foreach (FullEvent tempEvent in Events)
-            {
-                command.CommandText = "SELECT Name FROM Tags WHERE Id= ANY(SELECT IdTag FROM EventsTags WHERE IdEvent=" + tempEvent.Id + ")";
-                reader = command.ExecuteReader();
-                List<string> tags = new List<string>();
-                while (reader.Read())
-                {
-                    tags.Add((string)reader.GetValue(0));
-                }
-                tempEvent.Tags = tags.ToArray();
-                reader.Close();
-            }
-
-            MyConnection.Close();
-            return Ok(Events);
+            List<BasicEvent> events= GetAllEventsFromDB();            
+            return Ok(events);
         }
 
         [Route("{id}")]
         [HttpGet]
         public IHttpActionResult GetEvent(int id)
         {
-            // Получаем событие
-            MyConnection.Open();
-            SqlCommand command = new SqlCommand("SELECT Id, Title, Date, Description, LocationId FROM Events WHERE Id=" + id + "", MyConnection);
-            SqlDataReader reader = command.ExecuteReader();
-
-            if (!reader.Read()) // Если нет данных
-            {
-                MyConnection.Close();
-                return NotFound();
-            }
-            FullEvent tempEvent = new FullEvent((int)reader.GetValue(0), (string)reader.GetValue(1), (DateTime)reader.GetValue(2), (string)reader.GetValue(3), new Location((int)reader.GetValue(4)));
-            reader.Close();
-
-            // Получаем координаты
-            command.CommandText = "SELECT Latitude, Longitude, Name FROM Locations WHERE Id=" + tempEvent.Location.Id;
-            reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                tempEvent.Location.Latitude = (float)reader.GetValue(0);
-                tempEvent.Location.Longitude = (float)reader.GetValue(1);
-                tempEvent.Location.Name = (string)reader.GetValue(2);
-            }
-            reader.Close();
-
-            // Получаем список тегов для каждого события
-            command.CommandText = "SELECT Name FROM Tags WHERE Id= ANY(SELECT IdTag FROM EventsTags WHERE IdEvent=" + tempEvent.Id + ")";
-            reader = command.ExecuteReader();
-
-            List<string> tags = new List<string>();
-            while (reader.Read())
-            {
-                tags.Add((string)reader.GetValue(0));
-            }
-
-            tempEvent.Tags = tags.ToArray();
-            reader.Close();
-            MyConnection.Close();
-            return Ok(tempEvent);
+            FullEvent @event = GetEventFromDB(id);
+            return Ok(@event);
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult PostEvent(FullEvent @event)
+        public IHttpActionResult PostEvent(AddEvent @event)
         {
-            if (@event.Validate().Count > 0)
-            {
-                return BadRequest(ModelState);
-            }
-
-            // Заполняем координаты
-            MyConnection.Open();
-            SqlCommand command = new SqlCommand("INSERT into Locations VALUES(" + @event.Location.Latitude + ", " + @event.Location.Longitude + ",'" + @event.Location.Name + "') SELECT cast(  scope_identity() as int) ", MyConnection);
-            command.ExecuteNonQuery();
-
-            //command.CommandText = "SELECT scope_identity()";
-            SqlDataReader reader = command.ExecuteReader();
-            reader.Read();
-            int LocationsId = (int)reader.GetValue(0);
-
-            // Событие
-            command.CommandText = "INSERT Events VALUES(" + @event.Title + ", " + @event.Date + ", " + @event.Description + ", " + LocationsId + ")";
-
-            command.CommandText = "SELECT scope_identity()";
-            reader = command.ExecuteReader();
-            int EventId = (int)reader.GetValue(0);
-            reader.Close();
-            List<int> Tags = new List<int>();
-
-            // Теги
-            foreach (string tag in @event.Tags)
-            {
-                command.CommandText = "INSERT Tags VALUES('" + tag + "')";
-                command.ExecuteNonQuery();
-                command.CommandText = "SELECT scope_identity()";
-                reader = command.ExecuteReader();
-                Tags.Add((int)reader.GetValue(0));
-                reader.Close();
-            }
-
-            // Теги и события
-            foreach (int tag in Tags)
-            {
-                command.CommandText = "INSERT EventsTags VALUES('" + EventId + "', '" + tag + "')";
-                command.ExecuteNonQuery();
-            }
-
-            MyConnection.Close();
+            PostEventToDB(@event);
             return Ok(@event);
         }
 
@@ -184,10 +62,7 @@ namespace EventsApp.Controllers
         [HttpDelete]
         public HttpResponseMessage DeleteEvent(int id)
         {
-            MyConnection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM Events WHERE Id=" + id, MyConnection);
-            command.ExecuteNonQuery();
-            MyConnection.Close();
+            DeleteEventInDB(id);
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 

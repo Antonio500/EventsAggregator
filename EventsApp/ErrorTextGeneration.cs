@@ -13,6 +13,7 @@ namespace EventsApp
             TitleError,
             DescriptionError,
             LocationeError,
+            LocationIdError,
             DateError
         }
 
@@ -42,6 +43,11 @@ namespace EventsApp
                 if (error == Errors.LocationeError)
                 {
                     Console.Write("Ошибка задания координат! Широта должна быть от -90 до 90, долгота от -180 до 180!");
+                }
+
+                if (error == Errors.LocationIdError)
+                {
+                    Console.Write("Ошибка задания Id локации!");
                 }
 
                 if (error == Errors.DateError)

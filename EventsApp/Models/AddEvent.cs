@@ -1,34 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 using static EventsApp.ErrorTextGeneration;
 
 namespace EventsApp.Models
 {
-    public class EventDescription : Event
+    public class AddEvent
     {
+        [Required(ErrorMessage = "Укажите название события")]
+        [MinLength(4)]
+        public string Title { get; set; }
+
+        [Required(ErrorMessage = "Укажите дату и время проведения")]
+        public DateTime Date { get; set; }
+
         [Required(ErrorMessage = "Заполните описание события")]
         [MinLength(10)]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Укажите место проведения")]
-        [MinLength(5)]
-        public Location Location { get; set; }
+       // [Required(ErrorMessage = "Укажите место проведения")]
+        public int LocationId { get; set; }
 
-        public string[] Tags { get; set; }
-
-        public EventDescription()
+        AddEvent()
         {
         }
 
-        public EventDescription(int id, string title, string description, Location location, DateTime date, string[] tags = null)
+        AddEvent(string title, DateTime date, string description, int locationId)
         {
-            this.Id = id;
             this.Title = title;
-            this.Description = description;
-            this.Location = location;
             this.Date = date;
-            this.Tags = tags;
+            this.Description = description;
+            this.LocationId = locationId;
 
             List<Errors> Errors = this.Validate();
             if (Errors.Count != 0)
@@ -41,11 +45,6 @@ namespace EventsApp.Models
         public List<Errors> Validate()
         {
             List<Errors> Errors = new List<Errors>();
-            if (Id < 0 || Id > 1000000)
-            {
-                Errors.Add(ErrorTextGeneration.Errors.IdError);
-            }
-
             if (Title.Length < 4 || Title.Length > 200)
             {
                 Errors.Add(ErrorTextGeneration.Errors.TitleError);
@@ -56,9 +55,9 @@ namespace EventsApp.Models
                 Errors.Add(ErrorTextGeneration.Errors.DescriptionError);
             }
 
-            if (Math.Abs(Location.Latitude) > 90 || Math.Abs(Location.Longitude) > 180)
+            if (LocationId < 0 || LocationId > 1000000)
             {
-                Errors.Add(ErrorTextGeneration.Errors.LocationeError);
+                Errors.Add(ErrorTextGeneration.Errors.LocationIdError);
             }
 
             if (Date < DateTime.Now)

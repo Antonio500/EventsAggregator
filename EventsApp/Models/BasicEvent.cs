@@ -20,7 +20,11 @@ namespace EventsApp.Models
         public BasicEvent()
         {
         }
+        public BasicEvent(int id, string title, DateTime date)
+        {
+            this.Id = id;
+            this.Title = title;
+            this.Date = date;
+        }
     }
-
-
 }

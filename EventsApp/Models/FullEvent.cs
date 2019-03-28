@@ -20,7 +20,7 @@ namespace EventsApp.Models
         {
         }
 
-        public FullEvent(int id, string title, DateTime date, string description, Location location = null, string[] tags = null)
+        public FullEvent(int id, string title, DateTime date, string description, Location location, string[] tags = null)
         {
             this.Id = id;
             this.Title = title;
