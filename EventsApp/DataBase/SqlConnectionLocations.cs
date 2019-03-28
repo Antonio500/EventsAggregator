@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using EventsApp.DataBase;
 using EventsApp.Models;
 using System.Data.SqlClient;
-using static EventsApp.SqlConnectionClass;
 using System.Globalization;
 
 namespace EventsApp.DataBase
@@ -13,7 +9,7 @@ namespace EventsApp.DataBase
     public class SqlConnectionLocations
     {
         // Получаем весь список локаций
-        public static List<Location> GetAllLocationsFromDB()
+        public  List<Location> GetAllLocationsFromDB()
         {
             try
             {
@@ -37,11 +33,13 @@ namespace EventsApp.DataBase
             finally
             {
                 if (MyConnection.State == System.Data.ConnectionState.Open)
+                {
                     MyConnection.Close();
+                }
             }
         }
 
-        public static Location GetLocationFromDB(int id)
+        public Location GetLocationFromDB(int id)
         {
             try
             {
@@ -65,7 +63,7 @@ namespace EventsApp.DataBase
             }
         }
 
-        public static Location GetLocationFromDB(float latitude, float longitude)
+        public Location GetLocationFromDB(float latitude, float longitude)
         {
             try
             {
@@ -89,24 +87,26 @@ namespace EventsApp.DataBase
             }
         }
 
-        public static int PostLocationToDB(AddLocation location)
+        public int PostLocationToDB(AddLocation location)
         {
             try
             {
                 // Заполняем координаты
                 MyConnection.Open();
-                CultureInfo ci = new CultureInfo("en-us");
-                var commandSql = "INSERT into Locations(Latitude, Longitude, Name) VALUES(" + location.Latitude.ToString("F", CultureInfo.InvariantCulture) + ", " + location.Longitude.ToString("F", CultureInfo.InvariantCulture) + ",'" + location.Name + "') SELECT cast(  scope_identity() as int) ";
+                var commandSql = "INSERT into Locations(Latitude, Longitude, Name) VALUES(" +
+                                 location.Latitude.ToString("F", CultureInfo.InvariantCulture) + ", " +
+                                 location.Longitude.ToString("F", CultureInfo.InvariantCulture) + ",'" + location.Name +
+                                 "') SELECT cast(  scope_identity() as int) ";
                 SqlCommand command = new SqlCommand(commandSql, MyConnection);
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                int LocationsId = (int)reader.GetValue(0);
+                int LocationId = (int)reader.GetValue(0);
                 reader.Close();
-                return LocationsId;
+                return LocationId;
             }
             catch (Exception e)
             {
-                return 0;
+                throw  new Exception("", e);
             }
             finally
             {
@@ -116,7 +116,7 @@ namespace EventsApp.DataBase
         }
 
         // Удаляем локацию 
-        public static bool DeleteLocationInDB(int id)
+        public bool DeleteLocationInDB(int id)
         {
             try
             {

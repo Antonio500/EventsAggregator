@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace EventsApp
@@ -17,12 +18,17 @@ namespace EventsApp
             DateError
         }
 
-        static public void ErrorWrite(List<Errors> errors)
+        static public string ErrorWrite(List<Errors> errors)
         {
-            if (errors.Count != 0)
+            if (errors.Count == 0)
             {
-                Console.Write("При валидации возникли следующие ошибки:\n");
+                throw new Exception("");
             }
+            
+                var stringBuilder = new StringBuilder();
+                stringBuilder.Append("При валидации возникли следующие ошибки:");
+                stringBuilder.Append(Environment.NewLine);
+            
             foreach (Errors error in errors)
             {
                 if (error == Errors.IdError)
@@ -56,6 +62,7 @@ namespace EventsApp
                 }
 
             }
+            return stringBuilder.ToString();
         }
     }
 }

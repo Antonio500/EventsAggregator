@@ -20,7 +20,7 @@ namespace EventsApp.Models
         [MinLength(10)]
         public string Description { get; set; }
 
-       // [Required(ErrorMessage = "Укажите место проведения")]
+        [Required(ErrorMessage = "Укажите место проведения")]
         public int LocationId { get; set; }
 
         AddEvent()

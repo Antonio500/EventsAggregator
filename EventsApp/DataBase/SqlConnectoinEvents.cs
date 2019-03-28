@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using static EventsApp.SqlConnectionClass;
+
 
 namespace EventsApp.DataBase
 {
@@ -87,26 +87,23 @@ namespace EventsApp.DataBase
         // Добавляем событие в базу данных
         public static int PostEventToDB(AddEvent @event)
         {
-            try
+            using (var connection = DbConnectionProvider.GetDbConnectionOpen())
             {
-                // Заполняем координаты
-                MyConnection.Open();
-                var commandSql = "INSERT into Events VALUES('" + @event.Title + "', '" + @event.Date + "', '" + @event.Description + "', " + @event.LocationId + ") SELECT cast(  scope_identity() as int)";
-                SqlCommand command = new SqlCommand(commandSql, MyConnection);
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-                int LocationsId = (int)reader.GetValue(0);
-                reader.Close();
-                return LocationsId;
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
-            finally
-            {
-                if (MyConnection.State == System.Data.ConnectionState.Open)
-                    MyConnection.Close();
+                try
+                {
+                    // Заполняем координаты                    
+                    var commandSql = "INSERT into Events VALUES('" + @event.Title + "', '" + @event.Date + "', '" + @event.Description + "', " + @event.LocationId + ") SELECT cast(  scope_identity() as int)";
+                    SqlCommand command = new SqlCommand(commandSql, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    int LocationsId = (int)reader.GetValue(0);
+                    reader.Close();
+                    return LocationsId;
+                }
+                catch (Exception e)
+                {
+                    return 0;
+                }
             }
         }
 

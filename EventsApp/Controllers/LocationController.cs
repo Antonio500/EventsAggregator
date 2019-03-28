@@ -1,11 +1,9 @@
 ﻿using EventsApp.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using static EventsApp.DataBase.SqlConnectionLocations;
+using EventsApp.DataBase;
 
 namespace EventsApp.Controllers
 {
@@ -16,7 +14,8 @@ namespace EventsApp.Controllers
         [HttpGet]
         public IHttpActionResult GetAllLocations()
         {
-            List<Location> locations = GetAllLocationsFromDB();
+            var context = new SqlConnectionLocations();
+            List<Location> locations = context.GetAllLocationsFromDB();
             return Ok(locations);
         }
 
