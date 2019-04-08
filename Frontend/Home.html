@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<meta charset="utf-8">
+<head>
+    <title> Вход </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <style>
+
+        body {
+            background: linear-gradient(to bottom, rgb(97,102,242),rgb(222,143,242) );
+            background-attachment: fixed;
+            text-align: center;
+            font-family: 'Comfortaa';
+        }
+
+        img {
+            position: absolute;
+            top: 8px;
+            left: 16px;
+        }
+
+        .center {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        div {
+            display: inline-block;
+            height: 45px;
+            width: 370px;
+            position: relative;
+        }
+
+        .header {
+            
+            display: block;
+            color: white;
+            font-family: Comfortaa;
+            margin: 0 0 20px 0;
+        }
+
+        a {
+            color: white;
+            font-size: medium;
+        }
+
+            a:hover {
+                color: rgb(97,102,242);
+            }
+
+        .footer {
+            display: block;
+            margin: 10px 0 0 0;
+        }
+
+
+            .footer .button {
+                margin: -20px 0 0 0;
+                width: 300px;
+                background-color: rgb(97,102,242);
+                border: none;
+                color: white;
+                border-radius: 40px;
+                font-size: 18px;
+                padding: 12px;
+            }
+    </style>
+</head>
+
+<body>
+
+    <img src="icon.png" alt="Company Icon" width="150" height="150">
+    <div class="center">
+        <div class="header"> <h2>Добро пожаловать! </h2> </div>
+        <div><input type="text" class="form-control form-control-lg>" placeholder="Эл. почта"></div>
+        <div><input type="password" class="form-control form-control-lg>" data-toggle="password" placeholder="Введите ваш пароль"></div>
+        <div class="footer"><a href="#">Забыли свой пароль?</a></div>
+        <div class="footer"><input type="submit" class="button" value="Вход в личный кабинет"></div>
+    </div>
+
+
+</body>
+</html>
