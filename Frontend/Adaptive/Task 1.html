@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<meta charset="utf-8">
+<head>
+    <title> Вход </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+
+    <style>
+
+        body {
+            background: linear-gradient(to bottom, rgb(97,102,242),rgb(222,143,242) );
+            background-attachment: fixed;
+            text-align: center;
+            font-family: 'Comfortaa';
+        }
+
+        .icon {
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            height: 150px;
+            width: 150px;
+            visibility: visible;
+        }
+
+
+
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+
+        }
+
+            .middle .adaptiveicon {
+                display: none;
+                height: 200px;
+                width: 200px;
+                margin: auto auto auto auto;
+            }
+
+            .middle .header {
+                margin: 7% 0;
+                color: white;
+                font-family: Comfortaa;
+                font-size: 30px;
+            }
+
+            .middle .input {
+                width: 370px;
+                display: block;
+                margin: 7px 0;
+            }
+
+            .middle a {
+                color: white;
+                font-size: medium;
+            }
+
+                .middle a:hover {
+                    color: rgb(97,102,242);
+                }
+
+            .middle .footer {
+                display: block;
+                margin: 12px 0;
+            }
+
+                .middle .footer .button {
+                    width: 300px;
+                    background-color: rgb(97,102,242);
+                    border: none;
+                    color: white;
+                    border-radius: 40px;
+                    font-size: 18px;
+                    padding: 12px;
+                }
+
+                    .middle .footer .button:hover {
+                        color: rgb(222,143,242);
+                    }
+
+
+        @media screen and (max-width: 800px) {
+            .icon {
+                visibility: hidden;
+            }
+
+            .middle {
+                top: 45%;
+            }
+
+                .middle .adaptiveicon {
+                    display: block;
+                }
+        }
+    </style>
+</head>
+
+<body>
+
+    <img class="icon" src="icon.png" alt="Company Icon">
+    <div class="middle">
+        <img class="adaptiveicon" src="icon.png" alt="Company Icon">
+        <div class="header">Добро пожаловать!</div>
+        <div class="input"><input type="text" class="form-control form-control-lg>" placeholder="Эл. почта"></div>
+        <div class="input"><input type="password" class="form-control form-control-lg>" data-toggle="password" placeholder="Введите ваш пароль"></div>
+        <div class="footer"><a href="#">Забыли свой пароль?</a></div>
+        <div class="footer button"><input type="submit" class="button" value="Вход в личный кабинет"></div>
+    </div>
+
+</body>
+</html>
