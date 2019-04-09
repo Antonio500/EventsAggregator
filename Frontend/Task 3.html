@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<meta charset="utf-8">
+<head>
+    <title> Сделайте все это в мастер-классе</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <style>
+
+        body {
+            background-color: white;
+            color: black;
+            text-align: center;
+            font-family: 'Comfortaa';
+        }
+
+        .mainblock {
+            position: relative;
+            margin: 70px auto;
+            width: 1200px;
+            height: 700px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+            .mainblock .number {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: black;
+                padding: 5px 15px;
+                font-size: 25px;
+                color: white;
+                font-weight: bold;
+                letter-spacing: 2px;
+                z-index: 1;
+            }
+
+            .mainblock .section {
+                position: absolute;
+                height: 50%;
+                width: 50%;
+            }
+
+                .mainblock .section.top-left {
+                    top: 0;
+                    left: 0;
+                }
+
+                .mainblock .section.top-right {
+                    top: 0;
+                    right: 0;
+                }
+
+                .mainblock .section.bottom-left {
+                    bottom: 0;
+                    left: 0;
+                }
+
+                .mainblock .section.bottom-right {
+                    bottom: 0;
+                    right: 0;
+                }
+
+            .mainblock .middletext {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px 0;
+                display: block;
+                height: 15%;
+                width: 25%;
+                color: white;
+                background-color: rgb(97,102,242);
+                font-size: 23px;
+                z-index: 1;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="mainblock">
+        <div class="number">7.0</div>
+        <img class="section top-left" src="http://berezka-event.ru/wp-content/themes/Yegor/images/master-klass/master-klass-24.jpg" alt="Master classes">
+        <img class="section top-right" src="http://edumarket.ru/images/for_news/education_10.jpg" alt="Master classes">
+        <img class="section bottom-left" src="https://teremberendey.ru/wp-content/uploads/2018/03/pryaniki-master-klass.png" alt="Master classes">
+        <img class="section bottom-right" src="https://static.tildacdn.com/tild3964-3939-4635-a132-333535393637/abru20.jpeg" alt="Master classes">
+
+        <div class="middletext"> Сделайте все это в мастер классе!</div>
+
+
+    </div>
+</body>
+</html>
