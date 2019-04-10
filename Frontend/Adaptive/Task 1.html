@@ -8,15 +8,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
-    <meta name="viewport" content="width=device-width, initial-scale=1.5">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
+
         body {
+            position: absolute;
+            height: 100%;
+            width: 100%;
             background: linear-gradient(to bottom, rgb(97,102,242),rgb(222,143,242) );
-            background-attachment: fixed;
             text-align: center;
             font-family: 'Comfortaa';
+            background-attachment: fixed;
         }
 
         .icon {
@@ -28,52 +31,51 @@
             visibility: visible;
         }
 
-
-
-        .middle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-
+        .middle-container {
+            height: 100%;
+            width: 400px;
+            min-height: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-            .middle .adaptiveicon {
+            .middle-container .adaptive-icon {
+                position: static;
                 display: none;
-                height: 200px;
-                width: 200px;
-                margin: auto auto auto auto;
+                height: 150px;
+                width: 150px;
+                margin: 0 auto;
             }
 
-            .middle .header {
-                margin: 7% 0;
+            .middle-container .header {
+                margin: 30px auto;
                 color: white;
                 font-family: Comfortaa;
                 font-size: 30px;
             }
 
-            .middle .input {
-                width: 370px;
-                display: block;
-                margin: 7px 0;
+            .middle-container .input {
+                width: 90%;
+                margin: 1% auto;
             }
 
-            .middle a {
+            .middle-container a {
                 color: white;
                 font-size: medium;
             }
 
-                .middle a:hover {
+                .middle-container a:hover {
                     color: rgb(97,102,242);
                 }
 
-            .middle .footer {
-                display: block;
-                margin: 12px 0;
+            .middle-container .input-button {
+                margin: 12px auto;
             }
 
-                .middle .footer .button {
+                .middle-container .input-button .round-button {
                     width: 300px;
                     background-color: rgb(97,102,242);
                     border: none;
@@ -81,9 +83,10 @@
                     border-radius: 40px;
                     font-size: 18px;
                     padding: 12px;
+                    outline: none;
                 }
 
-                    .middle .footer .button:hover {
+                    .middle-container .input-button .round-button:hover {
                         color: rgb(222,143,242);
                     }
 
@@ -93,28 +96,36 @@
                 visibility: hidden;
             }
 
-            .middle {
-                top: 45%;
+            .middle-container {
+                width: 300px;
             }
 
-                .middle .adaptiveicon {
-                    display: block;
+                .middle-container .adaptive-icon {
+                    display: inline;
+                }
+
+                .middle-container .header {
+                    margin: 0 auto 15px auto;
+                    width: 300px;
+                }
+
+                .middle-container .input-button .round-button {
+                    width: 250px;
+                    font-size: 16px;
+                    padding: 10px;
                 }
         }
     </style>
 </head>
-
 <body>
-
     <img class="icon" src="icon.png" alt="Company Icon">
-    <div class="middle">
-        <img class="adaptiveicon" src="icon.png" alt="Company Icon">
+    <div class="middle-container">
+        <img class="adaptive-icon" src="icon.png" alt="Company Icon">
         <div class="header">Добро пожаловать!</div>
         <div class="input"><input type="text" class="form-control form-control-lg>" placeholder="Эл. почта"></div>
         <div class="input"><input type="password" class="form-control form-control-lg>" data-toggle="password" placeholder="Введите ваш пароль"></div>
-        <div class="footer"><a href="#">Забыли свой пароль?</a></div>
-        <div class="footer button"><input type="submit" class="button" value="Вход в личный кабинет"></div>
+        <div class="input-button"><a href="#">Забыли свой пароль?</a></div>
+        <div class="input-button"><input type="submit" class="round-button" value="Вход в личный кабинет"></div>
     </div>
-
 </body>
 </html>
