@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<meta charset="utf-8">
+<head>
+    <title> Сделайте все это в мастер-классе</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        body {
+            background-color: white;
+            color: black;
+            text-align: center;
+            font-family: 'Comfortaa';
+        }
+
+        .mainblock {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 70px auto;
+            width: 1200px;
+            height: 700px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+            .mainblock .number {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: black;
+                padding: 5px 15px;
+                font-size: 25px;
+                color: white;
+                font-weight: bold;
+                letter-spacing: 2px;
+                z-index: 2;
+            }
+
+            .mainblock .section {
+                position: absolute;
+                height: 50%;
+                width: 50%;
+            }
+
+                .mainblock .section.top-left {
+                    top: 0;
+                    left: 0;
+                }
+
+                .mainblock .section.top-right {
+                    top: 0;
+                    right: 0;
+                }
+
+                .mainblock .section.bottom-left {
+                    bottom: 0;
+                    left: 0;
+                }
+
+                .mainblock .section.bottom-right {
+                    bottom: 0;
+                    right: 0;
+                }
+
+            .mainblock .middletext {
+                height: 100px;
+                width: 250px;
+                color: white;
+                padding: 15px 0;
+                background-color: rgb(97,102,242);
+                font-size: 23px;
+                z-index: 1;
+            }
+
+        @media screen and (max-width: 992px) {
+            .mainblock {
+                margin: 30px auto;
+                width: 90%;
+                height: auto;
+                justify-content: flex-start;
+                align-items: center;
+            }
+
+                .mainblock .number {
+                    padding: 5px 10px;
+                    font-size: 14px;
+                }
+
+                .mainblock .section {
+                    height: auto;
+                    width: 100%;
+                    position: static;
+                }
+
+                .mainblock .middletext {
+                    font-size: larger;
+                    height:auto;
+                    min-height: 70px;
+                    width: 100%;
+                    padding: 20px 50px;
+                }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mainblock">
+        <div class="number">7.0</div>
+        <div class="middletext"> Сделайте все это в мастер классе!</div>
+        <img class="section top-left" src="http://berezka-event.ru/wp-content/themes/Yegor/images/master-klass/master-klass-24.jpg" alt="Master classes">
+        <img class="section top-right" src="http://edumarket.ru/images/for_news/education_10.jpg" alt="Master classes">
+        <img class="section bottom-left" src="https://teremberendey.ru/wp-content/uploads/2018/03/pryaniki-master-klass.png" alt="Master classes">
+        <img class="section bottom-right" src="https://static.tildacdn.com/tild3964-3939-4635-a132-333535393637/abru20.jpeg" alt="Master classes">
+
+
+    </div>
+</body>
+</html>
